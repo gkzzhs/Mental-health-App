@@ -70,6 +70,7 @@
    - 框架预设：Vue.js
    - 构建命令：`npm run build`
    - 输出目录：`dist`
+   - 环境变量：添加 `VITE_VOLCENGINE_API_KEY` 并设置为你的火山引擎API密钥
 5. 点击 "Deploy"
 
 ### 选项4：使用 Firebase Hosting 部署
@@ -124,3 +125,4 @@
 3. 清除浏览器缓存并刷新页面
 4. 检查浏览器控制台是否有错误信息
 5. 确保资源路径正确（检查 vite.config.js 中的 base 配置）
+6. 确保正确配置了火山引擎API密钥环境变量（VITE_VOLCENGINE_API_KEY）

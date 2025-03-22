@@ -212,7 +212,7 @@ export default {
           });
           
           // 使用火山引擎API - 确保使用正确的API密钥和端点
-          const apiResponse = await axios.post('https://ark.cn-beijing.volces.com/api/v3/chat/completions', {
+          const apiResponse = await axios.post('https://ark.cn-beijing.volcengine.com/api/v3/chat/completions', {
             model: "deepseek-r1-distill-qwen-7b-250120",
             messages: [
               {
@@ -227,10 +227,12 @@ export default {
           }, {
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${import.meta.env.VITE_VOLCES_API_KEY}`
+              'Authorization': `Bearer ${import.meta.env.VITE_VOLCENGINE_API_KEY}`
             },
             timeout: 30000 // 增加超时时间为30秒，给API更多响应时间
           });
+          
+          console.log('API调用成功，正在处理响应...');
           
           // 获取API返回的回复内容
           if (apiResponse.data && apiResponse.data.choices && apiResponse.data.choices.length > 0) {
