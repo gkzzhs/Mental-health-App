@@ -195,9 +195,10 @@ export default {
           inputWithMood = `[${moods[currentMood.value].label}] ${userInput.value}`;
         }
         
-        // 尝试调用火山引擎API
+        // 尝试调用API
         try {
-          console.log('正在调用API，请求数据:', {
+          // 准备请求数据
+          const requestData = {
             model: "deepseek-r1-distill-qwen-7b-250120",
             messages: [
               {
@@ -209,28 +210,62 @@ export default {
                 content: inputWithMood
               }
             ]
-          });
+          };
+          
+          console.log('正在调用API，请求数据:', requestData);
+          
+          // 确定是否使用本地代理
+          const useLocalProxy = true; // 设置为true启用本地代理，解决CORS问题
           
           // 使用火山引擎API - 确保使用正确的API密钥和端点
-          const apiResponse = await axios.post('https://ark.cn-beijing.volcengine.com/api/v3/chat/completions', {
-            model: "deepseek-r1-distill-qwen-7b-250120",
-            messages: [
-              {
-                role: "system",
-                content: "你是一位专业的心理健康顾问，擅长倾听、共情和提供心理支持。请根据用户的情绪和描述，提供温暖、专业的心理健康建议。回复应该包含对用户情绪的理解、积极的支持和实用的建议。请使用中文回复，语气温和友善。"
+          // 修正API URL，确保使用正确的域名和路径
+          const apiUrl = 'https://api.volcengine.com/v1/services/maas/chat/completions';
+          console.log('API URL:', apiUrl);
+          console.log('API密钥是否存在:', !!import.meta.env.VITE_VOLCENGINE_API_KEY);
+          console.log('API密钥长度:', import.meta.env.VITE_VOLCENGINE_API_KEY ? import.meta.env.VITE_VOLCENGINE_API_KEY.length : 0);
+          console.log('API密钥前10个字符:', import.meta.env.VITE_VOLCENGINE_API_KEY ? import.meta.env.VITE_VOLCENGINE_API_KEY.substring(0, 10) + '...' : 'N/A');
+          
+          let apiResponse;
+          
+          if (useLocalProxy) {
+            // 使用本地代理服务器
+            console.log('使用本地CORS代理服务器');
+            const proxyUrl = 'http://localhost:3000/api/chat'; // 本地代理服务器地址
+            
+            // 通过代理发送请求，不需要包含API密钥
+            apiResponse = await axios.post(proxyUrl, requestData, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
               },
-              {
-                role: "user",
-                content: inputWithMood
-              }
-            ]
-          }, {
-            headers: {
+              timeout: 60000 // 60秒超时
+            });
+            
+            console.log('代理服务器响应成功');
+          } else {
+            // 直接调用火山引擎API
+            console.log('直接调用火山引擎API');
+            
+            // 准备请求头，添加CORS相关配置
+            const headers = {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${import.meta.env.VITE_VOLCENGINE_API_KEY}`
-            },
-            timeout: 30000 // 增加超时时间为30秒，给API更多响应时间
-          });
+              'Authorization': `Bearer ${import.meta.env.VITE_VOLCENGINE_API_KEY}`,
+              'Accept': 'application/json'
+            };
+            
+            // 记录请求信息（不包含敏感信息）
+            console.log('请求头信息:', { 
+              'Content-Type': headers['Content-Type'],
+              'Accept': headers['Accept'],
+              'Authorization': '已设置但不显示'
+            });
+            
+            // 发送API请求
+            apiResponse = await axios.post(apiUrl, requestData, {
+              headers: headers,
+              timeout: 60000 // 60秒超时
+            });
+          }
           
           console.log('API调用成功，正在处理响应...');
           
@@ -261,12 +296,34 @@ export default {
           
           if (apiError.message && apiError.message.includes('Network Error')) {
             errorMessage += '网络连接出现问题，请检查您的网络连接并稍后再试。';
+            console.warn('网络连接错误，无法访问API服务器');
           } else if (apiError.response) {
             errorMessage += `服务器返回错误: ${apiError.response.status} - ${JSON.stringify(apiError.response.data)}`;
+            console.warn(`API服务器返回错误状态码: ${apiError.response.status}`, apiError.response.data);
           } else if (apiError.request) {
             errorMessage += '服务器未响应，请稍后再试。';
+            console.warn('API请求已发送但服务器未响应');
           } else {
             errorMessage += '错误信息: ' + (apiError.message || '未知错误');
+            console.warn('API调用过程中发生未知错误:', apiError.message);
+          }
+          
+          // 记录API调用的详细信息，帮助调试
+          console.log('API调用详情:', {
+            url: 'https://api.volcengine.com/v1/services/maas/chat/completions',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ****' // 隐藏实际API密钥
+            },
+            hasApiKey: !!import.meta.env.VITE_VOLCENGINE_API_KEY,
+            apiKeyLength: import.meta.env.VITE_VOLCENGINE_API_KEY ? import.meta.env.VITE_VOLCENGINE_API_KEY.length : 0
+          });
+          
+          // 检查是否在开发环境中
+          if (import.meta.env.DEV) {
+            console.log('当前在开发环境中运行');
+          } else {
+            console.log('当前在生产环境中运行');
           }
           
           response.value = errorMessage;
