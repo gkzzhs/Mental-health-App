@@ -1,0 +1,208 @@
+/* 车票动画样式 */
+
+/* 开心主题：粒子光点浮动动画 */
+.theme-happy {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-happy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 15px 15px;
+  pointer-events: none;
+  animation: happyParticles 20s infinite linear;
+  z-index: 1;
+}
+
+@keyframes happyParticles {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-10px) translateX(5px);
+    opacity: 0.5;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+}
+
+/* 焦虑主题：波浪舒缓动画 */
+.theme-anxious {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-anxious::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(175, 82, 222, 0.05) 25%, transparent 50%, rgba(175, 82, 222, 0.05) 75%, transparent 100%);
+  background-size: 200% 200%;
+  pointer-events: none;
+  animation: anxiousWaves 15s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes anxiousWaves {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* 平静主题：气泡上升动画 */
+.theme-calm {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-calm .bubble {
+  position: absolute;
+  bottom: -20px;
+  background-color: rgba(90, 200, 250, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: bubbleRise linear infinite;
+  z-index: 1;
+}
+
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* 难过主题：雨滴效果 */
+.theme-sad {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-sad::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 122, 255, 0) 0%, rgba(0, 122, 255, 0.05) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.theme-sad .raindrop {
+  position: absolute;
+  top: -20px;
+  width: 2px;
+  height: 10px;
+  background-color: rgba(0, 122, 255, 0.2);
+  border-radius: 0 0 5px 5px;
+  pointer-events: none;
+  animation: rainFall linear infinite;
+  z-index: 1;
+}
+
+@keyframes rainFall {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+}
+
+/* 生气主题：火花效果 */
+.theme-angry {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-angry::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 59, 48, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  animation: angryPulse 2s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes angryPulse {
+  0% { transform: scale(0.8); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+  100% { transform: scale(0.8); opacity: 0.3; }
+}
+
+/* 疲惫主题：模糊波纹 */
+.theme-tired {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-tired::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(142, 142, 147, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  animation: tiredWave 8s infinite ease-in-out;
+  z-index: 1;
+}
+
+@keyframes tiredWave {
+  0% { transform: scale(0.9); opacity: 0.2; }
+  50% { transform: scale(1.1); opacity: 0.4; }
+  100% { transform: scale(0.9); opacity: 0.2; }
+}
+
+/* 性能降级策略 */
+@media (prefers-reduced-motion: reduce) {
+  .theme-happy::before,
+  .theme-anxious::before,
+  .theme-calm .bubble,
+  .theme-sad .raindrop,
+  .theme-angry::before,
+  .theme-tired::before {
+    animation: none !important;
+    opacity: 0.1 !important;
+  }
+}

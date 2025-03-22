@@ -1,0 +1,34 @@
+/* 全局样式已在App.vue中定义，这里可以添加额外的样式 */
+/* 确保动画在所有浏览器中平滑运行 */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 确保页面占满整个视口 */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 移动设备适配 */
+@media (max-width: 480px) {
+  .card {
+    padding: 15px !important;
+  }
+  
+  h1 {
+    font-size: 24px !important;
+  }
+  
+  h2 {
+    font-size: 20px !important;
+  }
+  
+  .logo {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

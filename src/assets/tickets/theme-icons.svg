@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+  <!-- 滤镜效果：撕裂边缘 -->
+  <defs>
+    <filter id="torn-edge">
+      <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="2" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+    
+    <!-- 主题图标：开心 -->
+    <symbol id="icon-happy" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="#FF9500" />
+      <path d="M8 13a4 4 0 0 0 8 0" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+      <circle cx="8" cy="9" r="1.5" fill="white" />
+      <circle cx="16" cy="9" r="1.5" fill="white" />
+    </symbol>
+    
+    <!-- 主题图标：焦虑 -->
+    <symbol id="icon-anxious" viewBox="0 0 24 24">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="#AF52DE" />
+      <path d="M12 16c-2.2 0-4-1.8-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.2-1.8 4-4 4z" fill="#AF52DE" />
+      <circle cx="8" cy="9" r="1.5" fill="#AF52DE" />
+      <circle cx="16" cy="9" r="1.5" fill="#AF52DE" />
+    </symbol>
+    
+    <!-- 主题图标：平静 -->
+    <symbol id="icon-calm" viewBox="0 0 24 24">
+      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" fill="#5AC8FA" />
+      <path d="M7 14h10M9 9h2M13 9h2" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+    
+    <!-- 主题图标：难过 -->
+    <symbol id="icon-sad" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="#007AFF" />
+      <path d="M8 16a4 4 0 0 1 8 0" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+      <circle cx="8" cy="9" r="1.5" fill="white" />
+      <circle cx="16" cy="9" r="1.5" fill="white" />
+    </symbol>
+    
+    <!-- 主题图标：生气 -->
+    <symbol id="icon-angry" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="#FF3B30" />
+      <path d="M8 16a4 4 0 0 1 8 0" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+      <path d="M7 9l3 2M17 9l-3 2" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+    
+    <!-- 主题图标：疲惫 -->
+    <symbol id="icon-tired" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="#8E8E93" />
+      <path d="M8 14h8" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+      <path d="M9 9h-2M17 9h-2" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+  </defs>
+</svg>
