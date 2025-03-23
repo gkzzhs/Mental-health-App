@@ -59,11 +59,15 @@
 
 1. 确保App.vue中的`useLocalProxy`变量设置为`true`
 
-2. 在Vercel项目设置中添加环境变量：
+2. App.vue中已配置智能代理URL选择，会根据环境自动选择合适的代理地址：
+   - 本地开发环境：`http://localhost:3000/api/chat`
+   - Vercel部署环境：`/api/chat`（相对路径）
+
+3. 在Vercel项目设置中添加环境变量：
    - 名称：`VITE_VOLCENGINE_API_KEY`
    - 值：您的火山引擎API密钥
 
-3. 部署项目到Vercel后，系统会自动使用`/api/proxy.js`处理API请求并解决跨域问题
+4. 部署项目到Vercel后，系统会自动使用`/api/proxy.js`处理API请求并解决跨域问题
 
 ## 资源加载问题
 

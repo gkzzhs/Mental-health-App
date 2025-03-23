@@ -228,9 +228,12 @@ export default {
           let apiResponse;
           
           if (useLocalProxy) {
-            // 使用本地代理服务器
-            console.log('使用本地CORS代理服务器');
-            const proxyUrl = 'http://localhost:3000/api/chat'; // 本地代理服务器地址
+            // 使用代理服务器
+            console.log('使用CORS代理服务器');
+            // 根据环境选择合适的代理URL
+            const proxyUrl = window.location.hostname === 'localhost' 
+              ? 'http://localhost:3000/api/chat' // 本地开发环境
+              : '/api/chat'; // Vercel部署环境
             
             // 通过代理发送请求，不需要包含API密钥
             apiResponse = await axios.post(proxyUrl, requestData, {
